@@ -1,0 +1,9 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getProjects } from "@/lib/data";
+const sections: Record<string,{title:string;description:string}> = {
+ technology:{title:"Technology & IT",description:"Web development, IT support, operating systems, networking and cloud projects."},
+ cybersecurity:{title:"Cybersecurity",description:"Security labs, defensive analysis, investigations and security-focused projects."},
+ production:{title:"Production",description:"Camera operation, film, documentaries, live events and production coordination."}
+};
+export default async function CategoryPage({params}:{params:Promise<{category:string}>}) { const {category}=await params; const section=sections[category]; if(!section) notFound(); const projects=await getProjects(category); return <main className="wrap" style={{padding:"30px 0 80px"}}><Link href="/" className="eyebrow">← Back home</Link><div style={{padding:"64px 0 35px"}}><div className="eyebrow">Portfolio / {category}</div><h1 className="pixel" style={{fontSize:"clamp(38px,7vw,76px)",margin:"18px 0"}}>{section.title}</h1><p className="muted" style={{maxWidth:620,lineHeight:1.8}}>{section.description}</p></div><div className="rule" style={{paddingTop:24}}>{projects.length===0?<p className="muted">No published projects in this area yet. New work will appear here once added in the CMS.</p>:<div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(250px,1fr))",gap:12}}>{projects.map(p=><Link key={p.id} href={`/projects/${p.slug}`} className="card"><div className="eyebrow">{p.category}</div><h2 className="pixel" style={{fontSize:25}}>{p.title}</h2><p className="muted" style={{fontSize:13,lineHeight:1.7}}>{p.summary}</p><span className="eyebrow">Read case study ↗</span></Link>)}</div>}</div></main> }
