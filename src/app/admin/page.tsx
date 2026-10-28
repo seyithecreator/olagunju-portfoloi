@@ -5,7 +5,9 @@ import { signOut } from "./actions";
 
 const navigation = [
   { href: "/admin", label: "Overview", icon: "◈" },
+  { href: "/admin/sections", label: "Career paths & sections", icon: "◫" },
   { href: "/admin/projects", label: "Projects", icon: "▧" },
+  { href: "/admin/certificates", label: "Certificates", icon: "✧" },
   { href: "/admin/experience", label: "Experience", icon: "⌁" },
   { href: "/admin/skills", label: "Skills", icon: "✳" },
   { href: "/admin/media", label: "Media library", icon: "▤" },
@@ -37,7 +39,7 @@ export default async function AdminPage() {
     { label: "Projects", count: projects ?? 0, href: "/admin/projects", note: "Case studies & work" },
     { label: "Experience", count: experience ?? 0, href: "/admin/experience", note: "Roles & contributions" },
     { label: "Skills", count: skills ?? 0, href: "/admin/skills", note: "Tools & capabilities" },
-    { label: "Certificates", count: certificates ?? 0, href: "/admin/settings", note: "Credentials & learning" },
+    { label: "Certificates", count: certificates ?? 0, href: "/admin/certificates", note: "Credentials & learning" },
   ];
 
   return <main className="admin-shell">
@@ -68,6 +70,7 @@ export default async function AdminPage() {
       <div className="admin-dashboard-lower" style={{ display: "grid", gridTemplateColumns: "minmax(0,1.2fr) minmax(250px,.8fr)", gap: 14, marginTop: 22 }}>
         <div className="admin-note"><div className="eyebrow">Suggested workflow</div><h2 className="pixel" style={{ fontSize: 24, margin: "14px 0 10px" }}>MAKE IT VISIBLE.</h2><p className="muted" style={{ fontSize: 13, lineHeight: 1.85, margin: 0 }}>Create or update a project, add a clear summary and relevant links, then publish it. Review the public page after changes to make sure the content displays as expected.</p><Link className="button" href="/admin/projects" style={{ marginTop: 18 }}>Manage projects ↗</Link></div>
         <div className="card" style={{ minHeight: 0 }}><div className="eyebrow">Quick actions</div><div style={{ display: "grid", gap: 9, marginTop: 16 }}>
+          <Link className="button" href="/admin/sections">＋ Manage career paths</Link>
           <Link className="button" href="/admin/projects">＋ Add a project</Link>
           <Link className="button" href="/admin/experience">＋ Add experience</Link>
           <Link className="button" href="/admin/skills">＋ Add a skill</Link>
