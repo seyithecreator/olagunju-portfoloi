@@ -57,7 +57,7 @@ export default async function AdminPage() {
       <div className="admin-account">
         <span className="eyebrow">Signed in as</span>
         <span className="admin-account-email">{user.email}</span>
-        <form action={signOut}><button className="button">Sign out ↗</button></form>
+        <form action={signOut}><button className="button">Sign out <ArrowUpRight size={14} strokeWidth={1.8} /></button></form>
       </div>
     </aside>
     <section className="admin-content">
