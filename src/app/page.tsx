@@ -15,7 +15,7 @@ export default async function Home() {
         <nav className="site-nav site-nav-desktop" aria-label="Main navigation">
           <a href="#work">Work</a><a href="#disciplines">Disciplines</a><a href="#about">About</a><a href="#contact">Contact</a>
         </nav>
-        <details className="mobile-nav"><summary aria-label="Open navigation menu"><span className="mobile-nav-label">MENU</span><span className="mobile-nav-lines"><i/><i/></span></summary><nav aria-label="Mobile main navigation"><a href="#work">Work <span>↗</span></a><a href="#disciplines">Disciplines <span>↗</span></a><a href="#about">About <span>↗</span></a><a href="#contact">Contact <span>↗</span></a></nav></details>
+        <details className="mobile-nav"><summary aria-label="Open navigation menu"><span className="mobile-nav-label">MENU</span><span className="mobile-nav-lines"><i/><i/></span></summary><nav aria-label="Mobile main navigation"><a href="#work">Work <ArrowUpRight size={13} strokeWidth={1.8}/></a><a href="#disciplines">Disciplines <ArrowUpRight size={13} strokeWidth={1.8}/></a><a href="#about">About <ArrowUpRight size={13} strokeWidth={1.8}/></a><a href="#contact">Contact <ArrowUpRight size={13} strokeWidth={1.8}/></a></nav></details>
       </header>
 
       <section className="wrap hero">
@@ -50,7 +50,7 @@ export default async function Home() {
                 </div>
                 <h2 className="pixel card-title">{p.title}</h2>
                 <p className="card-copy">{p.description}</p>
-                <div className="eyebrow" style={{ marginTop: 24 }}>Explore area ↗</div>
+                <div className="eyebrow discipline-card-action" style={{ marginTop: 24 }}>Explore area <ArrowUpRight size={13} strokeWidth={1.8}/></div>
               </Link>
             ))}
           </div>
@@ -74,7 +74,7 @@ export default async function Home() {
                   <div className="eyebrow">{p.category}</div>
                   <h3 className="pixel card-title" style={{ marginTop: 24 }}>{p.title}</h3>
                   <p className="card-copy">{p.summary}</p>
-                  <span className="eyebrow" style={{ display: "block", marginTop: 24 }}>View project ↗</span>
+                  <span className="eyebrow project-card-action" style={{ display: "flex", marginTop: 24 }}>View project <ArrowUpRight size={13} strokeWidth={1.8}/></span>
                 </Link>
               ))}
             </div>
@@ -95,7 +95,7 @@ export default async function Home() {
       <footer id="contact" className="rule">
         <div className="wrap site-footer">
           <div><div className="pixel" style={{ fontSize: 22 }}>OLAGUNJU OLUWASEYI<span className="neon-text">.</span></div><p className="muted" style={{ fontSize: 12 }}>Technology. Security. Production.</p></div>
-          <div className="footer-links"><a href="mailto:hello@example.com">Email ↗</a><a href="https://github.com/seyithecreator" target="_blank" rel="noreferrer">GitHub ↗</a></div>
+          <div className="footer-links"><a href="mailto:hello@example.com">Email <ArrowUpRight size={13} strokeWidth={1.8}/></a><a href="https://github.com/seyithecreator" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={13} strokeWidth={1.8}/></a></div>
           <div className="eyebrow" style={{ width: "100%", color: "#829087" }}>© {new Date().getFullYear()} / Built to evolve</div>
         </div>
       </footer>
