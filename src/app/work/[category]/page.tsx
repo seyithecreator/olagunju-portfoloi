@@ -19,7 +19,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
         <nav className="site-nav site-nav-desktop" aria-label="Main navigation">
           <Link href="/#work">Work</Link><Link href="/#disciplines">Disciplines</Link><Link href="/#about">About</Link><Link href="/#contact">Contact</Link>
         </nav>
-        <details className="mobile-nav"><summary aria-label="Open navigation menu"><span className="mobile-nav-label">MENU</span><span className="mobile-nav-lines"><i/><i/></span></summary><nav aria-label="Mobile main navigation"><Link href="/#work">Work <span>↗</span></Link><Link href="/#disciplines">Disciplines <span>↗</span></Link><Link href="/#about">About <span>↗</span></Link><Link href="/#contact">Contact <span>↗</span></Link></nav></details>
+        <details className="mobile-nav"><summary aria-label="Open navigation menu"><span className="mobile-nav-label">MENU</span><span className="mobile-nav-lines"><i/><i/></span></summary><nav aria-label="Mobile main navigation"><Link href="/#work">Work <ArrowUpRight size={13} strokeWidth={1.8}/></Link><Link href="/#disciplines">Disciplines <ArrowUpRight size={13} strokeWidth={1.8}/></Link><Link href="/#about">About <ArrowUpRight size={13} strokeWidth={1.8}/></Link><Link href="/#contact">Contact <ArrowUpRight size={13} strokeWidth={1.8}/></Link></nav></details>
       </header>
       <section className="wrap career-hero">
         <div className="career-hero-copy">
