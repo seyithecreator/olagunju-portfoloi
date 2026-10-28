@@ -279,3 +279,22 @@ button, input, textarea, select { font: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .career-icon-orbit-one, .career-icon-orbit-two, .career-main-icon { animation:none !important; }
 }
+
+/* CMS dashboard mobile polish */
+.admin-menu-summary-icon { display:inline-flex; color:var(--neon); }
+.admin-mobile-menu summary > span:nth-child(2) { white-space:nowrap; }
+.admin-mobile-menu-links a { min-height:44px; display:flex; align-items:center; gap:11px; }
+.admin-mobile-menu-links a > svg { color:var(--neon); flex:0 0 auto; }
+.admin-mobile-menu-links a > span:nth-child(2) { flex:1; }
+.admin-mobile-menu-links .admin-nav-arrow { opacity:.7; }
+.admin-current-mark { color:var(--neon); font:9px ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.08em; }
+@media(max-width:640px) {
+ .admin-nav { overflow:visible; z-index:40; }
+ .admin-nav > a:not(.pixel) { display:none !important; }
+ .admin-nav > span.eyebrow { display:block; }
+ .admin-mobile-menu { grid-column:2; grid-row:1 / span 2; min-width:150px; }
+ .admin-mobile-menu summary { width:100%; min-width:150px; min-height:44px; border-radius:7px; }
+ .admin-mobile-menu-links { min-width:min(290px,calc(100vw - 32px)); right:0; left:auto; z-index:60; max-height:min(70vh,520px); overflow-y:auto; }
+ .admin-content { min-width:0; }
+ .admin-content h1 { overflow-wrap:anywhere; line-height:1.12; }
+}
