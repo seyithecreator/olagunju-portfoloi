@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signOut } from "./actions";
 import { AdminMobileMenu } from "./admin-mobile-menu";
+import { ArrowUpRight } from "lucide-react";
 
 const navigation = [
   { href: "/admin", label: "Overview", icon: "◈" },
@@ -62,7 +63,7 @@ export default async function AdminPage() {
     <section className="admin-content">
       <div className="admin-topline">
         <div><div className="eyebrow">Workspace / Overview</div><h1 className="pixel" style={{ fontSize: "clamp(32px,5vw,54px)", margin: "12px 0 8px" }}>CONTROL ROOM<span className="neon-text">.</span></h1><p className="muted" style={{ fontSize: 13, lineHeight: 1.7, margin: 0 }}>Your portfolio content, organised in one place.</p></div>
-        <Link className="button" href="/" target="_blank">View live portfolio ↗</Link>
+        <Link className="button" href="/" target="_blank">View live portfolio <ArrowUpRight size={14} strokeWidth={1.8} /></Link>
       </div>
       <div className="admin-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(155px,1fr))", gap: 13, marginTop: 30 }}>
         {stats.map((item, index) => <Link href={item.href} key={item.label} className="admin-stat" style={{ animationDelay: `${index * 80}ms` }}>
@@ -70,7 +71,7 @@ export default async function AdminPage() {
         </Link>)}
       </div>
       <div className="admin-dashboard-lower" style={{ display: "grid", gridTemplateColumns: "minmax(0,1.2fr) minmax(250px,.8fr)", gap: 14, marginTop: 22 }}>
-        <div className="admin-note"><div className="eyebrow">Suggested workflow</div><h2 className="pixel" style={{ fontSize: 24, margin: "14px 0 10px" }}>MAKE IT VISIBLE.</h2><p className="muted" style={{ fontSize: 13, lineHeight: 1.85, margin: 0 }}>Create or update a project, add a clear summary and relevant links, then publish it. Review the public page after changes to make sure the content displays as expected.</p><Link className="button" href="/admin/projects" style={{ marginTop: 18 }}>Manage projects ↗</Link></div>
+        <div className="admin-note"><div className="eyebrow">Suggested workflow</div><h2 className="pixel" style={{ fontSize: 24, margin: "14px 0 10px" }}>MAKE IT VISIBLE.</h2><p className="muted" style={{ fontSize: 13, lineHeight: 1.85, margin: 0 }}>Create or update a project, add a clear summary and relevant links, then publish it. Review the public page after changes to make sure the content displays as expected.</p><Link className="button" href="/admin/projects" style={{ marginTop: 18 }}>Manage projects <ArrowUpRight size={14} strokeWidth={1.8} /></Link></div>
         <div className="card" style={{ minHeight: 0 }}><div className="eyebrow">Quick actions</div><div style={{ display: "grid", gap: 9, marginTop: 16 }}>
           <Link className="button" href="/admin/sections">＋ Manage career paths</Link>
           <Link className="button" href="/admin/projects">＋ Add a project</Link>
