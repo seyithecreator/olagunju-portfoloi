@@ -1,0 +1,6 @@
+"use server";
+import {redirect} from "next/navigation";
+import {createClient} from "@/lib/supabase/server";
+async function auth(){const s=await createClient();const {data:{user}}=await s.auth.getUser();if(!user)redirect("/admin/login");const {data}=await s.from("admin_users").select("user_id").eq("user_id",user.id).maybeSingle();if(!data)throw new Error("Administrator access required");return s;}
+export async function saveCertificate(f:FormData){const s=await auth();const id=String(f.get("id")||"");const payload={name:String(f.get("name")||"").trim(),issuer:String(f.get("issuer")||""),issue_date:String(f.get("issue_date")||"")||null,expiry_date:String(f.get("expiry_date")||"")||null,credential_id:String(f.get("credential_id")||""),credential_url:String(f.get("credential_url")||"")||null,description:String(f.get("description")||""),visible:f.get("visible")==="on"};const result=id?await s.from("certificates").update(payload).eq("id",id):await s.from("certificates").insert(payload);if(result.error)throw new Error(result.error.message);redirect("/admin/certificates");}
+export async function deleteCertificate(f:FormData){const s=await auth();const {error}=await s.from("certificates").delete().eq("id",String(f.get("id")));if(error)throw new Error(error.message);redirect("/admin/certificates");}
