@@ -259,3 +259,23 @@ button, input, textarea, select { font: inherit; }
  .admin-content > .admin-topline { display:grid; grid-template-columns:minmax(0,1fr); gap:16px; }
  .admin-content > .admin-topline > .button { width:100%; }
 }
+
+/* Consistent vector arrows and reliable mobile motion */
+.mobile-nav > nav a { gap:14px; }
+.mobile-nav > nav a > svg { flex:0 0 auto; color:var(--neon); }
+.discipline-card-action, .project-card-action { display:flex !important; align-items:center; gap:8px; }
+.discipline-card-action svg, .project-card-action svg { flex:0 0 auto; transition:transform .22s ease; }
+.card:hover .discipline-card-action svg, .card:focus-visible .discipline-card-action svg,
+.card:hover .project-card-action svg, .card:focus-visible .project-card-action svg { transform:translate(2px,-2px); }
+.footer-links a { display:inline-flex; align-items:center; gap:6px; }
+@media (max-width:640px) {
+  .mobile-nav > nav a { min-height:44px; }
+  .career-icon-stage, .hero-art { isolation:isolate; }
+  .career-icon-orbit, .hero-orbit { will-change:transform; }
+  .career-icon-orbit-one { animation: orbit-float 8s ease-in-out infinite; }
+  .career-icon-orbit-two { animation: orbit-float 10s ease-in-out infinite reverse; }
+  .career-main-icon, .hero-symbol { animation:symbol-breathe 5s ease-in-out infinite; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .career-icon-orbit-one, .career-icon-orbit-two, .career-main-icon { animation:none !important; }
+}
