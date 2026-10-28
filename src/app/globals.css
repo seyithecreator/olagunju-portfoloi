@@ -298,3 +298,12 @@ button, input, textarea, select { font: inherit; }
  .admin-content { min-width:0; }
  .admin-content h1 { overflow-wrap:anywhere; line-height:1.12; }
 }
+
+
+.admin-mobile-menu-divider { height:1px; margin:7px 4px; background:rgba(166,255,117,.16); }
+.admin-mobile-signout-form { margin:0; }
+.admin-mobile-signout { width:100%; min-height:44px; display:flex; align-items:center; gap:11px; padding:12px 10px; border:0; border-radius:4px; background:transparent; color:#c6d0c7; text-align:left; font:inherit; font-size:12px; cursor:pointer; }
+.admin-mobile-signout svg:first-child { color:var(--neon); flex:0 0 auto; }
+.admin-mobile-signout span { flex:1; }
+.admin-mobile-signout .admin-nav-arrow { opacity:.7; }
+.admin-mobile-signout:hover, .admin-mobile-signout:focus-visible { color:var(--neon); background:rgba(166,255,117,.07); }
