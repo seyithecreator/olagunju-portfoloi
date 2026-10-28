@@ -1,15 +1,12 @@
 import Link from "next/link";
-import { ArrowUpRight, ShieldCheck, Camera, Code2 } from "lucide-react";
+import { ArrowUpRight, BriefcaseBusiness } from "lucide-react";
 import { getProjects } from "@/lib/data";
-
-const paths = [
-  { title: "Technology & IT", slug: "technology", desc: "Web development, systems, cloud and practical IT support.", icon: Code2 },
-  { title: "Cybersecurity", slug: "cybersecurity", desc: "Security labs, blue-team practice, investigations and tools.", icon: ShieldCheck },
-  { title: "Production", slug: "production", desc: "Camera operation, film, documentaries and live productions.", icon: Camera },
-];
+import { createClient } from "@/lib/supabase/server";
 
 export default async function Home() {
   const projects = await getProjects();
+  const supabase = await createClient();
+  const { data: paths } = await supabase.from("portfolio_sections").select("title,slug,description,sort_order").eq("visible", true).order("sort_order", { ascending: true });
   return (
     <main>
       <header className="wrap site-header">
@@ -43,20 +40,17 @@ export default async function Home() {
         <div className="wrap section-pad">
           <div className="eyebrow" style={{ marginBottom: 22 }}>01 / Areas of practice</div>
           <div className="discipline-grid">
-            {paths.map((p, i) => {
-              const Icon = p.icon;
-              return (
-                <Link key={p.slug} href={`/work/${p.slug}`} className="card">
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 30 }}>
-                    <Icon size={22} color="var(--neon)" strokeWidth={1.6} />
-                    <span className="eyebrow">0{i + 1} / 03</span>
-                  </div>
-                  <h2 className="pixel card-title">{p.title}</h2>
-                  <p className="card-copy">{p.desc}</p>
-                  <div className="eyebrow" style={{ marginTop: 24 }}>Explore area ↗</div>
-                </Link>
-              );
-            })}
+            {(paths ?? []).map((p, i) => (
+              <Link key={p.slug} href={"/work/" + p.slug} className="card">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 30 }}>
+                  <BriefcaseBusiness size={22} color="var(--neon)" strokeWidth={1.6} />
+                  <span className="eyebrow">{String(i + 1).padStart(2, "0")} / {String(paths?.length ?? 0).padStart(2, "0")}</span>
+                </div>
+                <h2 className="pixel card-title">{p.title}</h2>
+                <p className="card-copy">{p.description}</p>
+                <div className="eyebrow" style={{ marginTop: 24 }}>Explore area ↗</div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
