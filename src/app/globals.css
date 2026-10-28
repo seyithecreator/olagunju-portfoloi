@@ -170,3 +170,21 @@ button, input, textarea, select { font: inherit; }
   .admin-content h1 { font-size: clamp(29px, 9vw, 42px) !important; }
   .admin-stat { padding: 16px; }
 }
+
+.admin-nav-list { display: grid; gap: 5px; margin-top: 8px; }
+.admin-nav .admin-nav-list > a { display: flex; align-items: center; gap: 11px; }
+.admin-nav .admin-nav-list > a.admin-active-link { color: var(--neon); border-color: rgba(166,255,117,.28); background: rgba(166,255,117,.07); }
+.admin-nav-icon { display: inline-grid; place-items: center; width: 21px; color: var(--neon); font-size: 16px; }
+.admin-account { margin-top: auto; display: grid; gap: 8px; padding-top: 18px; border-top: 1px solid rgba(166,255,117,.15); min-width: 0; }
+.admin-account-email { font-size: 11px; color: var(--muted); overflow-wrap: anywhere; }
+.admin-content > .admin-topline > .button { flex-shrink: 0; }
+@media (max-width: 900px) {
+ .admin-dashboard-lower { grid-template-columns: minmax(0,1fr) !important; }
+}
+@media (max-width: 640px) {
+ .admin-nav-list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 0; }
+ .admin-account { margin: 0 0 0 auto; padding: 0; border: 0; }
+ .admin-account > .eyebrow, .admin-account-email { display: none; }
+ .admin-nav .admin-nav-list > a { padding: 7px 8px; font-size: 11px; }
+ .admin-content > .admin-topline { align-items: flex-start; }
+}
