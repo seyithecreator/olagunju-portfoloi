@@ -1,5 +1,7 @@
 "use client";
 import Link from "next/link";
+import { signOut } from "./actions";
+import { LogOut } from "lucide-react";
 import { LayoutDashboard, Layers3, FolderKanban, Award, BriefcaseBusiness, Sparkles, Images, Settings2, ChevronDown, ArrowUpRight, type LucideIcon } from "lucide-react";
 
 const links: { href: string; label: string; Icon: LucideIcon }[] = [
@@ -20,6 +22,10 @@ export function AdminMobileMenu({ current }: { current: string }) {
       {links.map(({ href, label, Icon }) => <Link key={href} href={href} aria-current={href === current ? "page" : undefined} className={href === current ? "admin-active-link" : ""}>
         <Icon size={17} strokeWidth={1.7}/><span>{label}</span>{href === current ? <span className="admin-current-mark">CURRENT</span> : <ArrowUpRight size={13} className="admin-nav-arrow"/>}
       </Link>)}
+      <div className="admin-mobile-menu-divider" />
+      <form action={signOut} className="admin-mobile-signout-form">
+        <button type="submit" className="admin-mobile-signout"><LogOut size={17} strokeWidth={1.7}/><span>Sign out</span><ArrowUpRight size={13} className="admin-nav-arrow"/></button>
+      </form>
     </nav>
   </details>;
 }
