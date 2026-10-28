@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { ArrowUpRight, BriefcaseBusiness } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import { SectionIcon } from "@/components/section-icon";
 import { getProjects } from "@/lib/data";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function Home() {
   const projects = await getProjects();
   const supabase = await createClient();
-  const { data: paths } = await supabase.from("portfolio_sections").select("title,slug,description,sort_order").eq("visible", true).order("sort_order", { ascending: true });
+  const { data: paths } = await supabase.from("portfolio_sections").select("title,slug,description,sort_order,icon_name").eq("visible", true).order("sort_order", { ascending: true });
   return (
     <main>
       <header className="wrap site-header">
@@ -43,7 +44,7 @@ export default async function Home() {
             {(paths ?? []).map((p, i) => (
               <Link key={p.slug} href={"/work/" + p.slug} className="card">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 30 }}>
-                  <BriefcaseBusiness size={22} color="var(--neon)" strokeWidth={1.6} />
+                  <SectionIcon name={p.icon_name} size={26} strokeWidth={1.5} />
                   <span className="eyebrow">{String(i + 1).padStart(2, "0")} / {String(paths?.length ?? 0).padStart(2, "0")}</span>
                 </div>
                 <h2 className="pixel card-title">{p.title}</h2>
@@ -85,7 +86,7 @@ export default async function Home() {
           <div><div className="eyebrow">03 / About</div><h2 className="pixel" style={{ fontSize: 38, lineHeight: 1.1, marginTop: 16 }}>CURIOUS BY<br /><span className="neon-text">DESIGN.</span></h2></div>
           <div>
             <p className="about-copy">I bring together technical problem-solving and hands-on production experience. This portfolio documents projects, practical learning, work contributions and the process behind them — with clear distinctions between professional experience, personal projects and training labs.</p>
-            <p className="muted" style={{ fontSize: 12, lineHeight: 1.9 }}>The content on this site is managed through a private CMS, so new projects and experiences can be added as the work grows.</p>
+            <p className="muted" style={{ fontSize: 12, lineHeight: 1.9 }}>Every project is part of a bigger process: exploring ideas, learning by building, solving practical problems and sharing what the work teaches me.</p>
           </div>
         </div>
       </section>
@@ -93,7 +94,7 @@ export default async function Home() {
       <footer id="contact" className="rule">
         <div className="wrap site-footer">
           <div><div className="pixel" style={{ fontSize: 22 }}>OLAGUNJU OLUWASEYI<span className="neon-text">.</span></div><p className="muted" style={{ fontSize: 12 }}>Technology. Security. Production.</p></div>
-          <div className="footer-links"><a href="mailto:hello@example.com">Email ↗</a><a href="https://github.com/seyithecreator" target="_blank" rel="noreferrer">GitHub ↗</a><Link href="/admin">Admin ↗</Link></div>
+          <div className="footer-links"><a href="mailto:hello@example.com">Email ↗</a><a href="https://github.com/seyithecreator" target="_blank" rel="noreferrer">GitHub ↗</a></div>
           <div className="eyebrow" style={{ width: "100%", color: "#829087" }}>© {new Date().getFullYear()} / Built to evolve</div>
         </div>
       </footer>
