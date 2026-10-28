@@ -46,11 +46,12 @@ export default async function AdminPage() {
     <aside className="admin-nav">
       <Link href="/" className="pixel" style={{ fontSize: 22, color: "var(--neon)" }}>O/ CMS</Link>
       <span className="eyebrow">Portfolio workspace</span>
-      <div className="admin-nav-list">
+      <div className="admin-nav-list admin-nav-list-desktop">
         {navigation.map((item) => <Link key={item.href} href={item.href} aria-current={item.href === "/admin" ? "page" : undefined} className={item.href === "/admin" ? "admin-active-link" : ""}>
           <span aria-hidden="true" className="admin-nav-icon">{item.icon}</span>{item.label}
         </Link>)}
       </div>
+      <details className="admin-mobile-menu"><summary><span className="admin-nav-icon">☷</span> MENU <span className="admin-menu-chevron">⌄</span></summary><div className="admin-mobile-menu-links">{navigation.map((item) => <Link key={item.href} href={item.href} className={item.href === "/admin" ? "admin-active-link" : ""}><span className="admin-nav-icon">{item.icon}</span>{item.label}</Link>)}</div></details>
       <div className="admin-account">
         <span className="eyebrow">Signed in as</span>
         <span className="admin-account-email">{user.email}</span>
