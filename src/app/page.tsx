@@ -12,9 +12,10 @@ export default async function Home() {
     <main>
       <header className="wrap site-header">
         <Link href="/" className="pixel brand-mark" aria-label="Olagunju Oluwaseyi home">O/</Link>
-        <nav className="site-nav" aria-label="Main navigation">
+        <nav className="site-nav site-nav-desktop" aria-label="Main navigation">
           <a href="#work">Work</a><a href="#disciplines">Disciplines</a><a href="#about">About</a><a href="#contact">Contact</a>
         </nav>
+        <details className="mobile-nav"><summary aria-label="Open navigation menu"><span className="mobile-nav-label">MENU</span><span className="mobile-nav-lines"><i/><i/></span></summary><nav aria-label="Mobile main navigation"><a href="#work">Work <span>↗</span></a><a href="#disciplines">Disciplines <span>↗</span></a><a href="#about">About <span>↗</span></a><a href="#contact">Contact <span>↗</span></a></nav></details>
       </header>
 
       <section className="wrap hero">
