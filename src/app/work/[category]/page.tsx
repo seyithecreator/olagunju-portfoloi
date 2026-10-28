@@ -16,9 +16,10 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
     <main>
       <header className="wrap site-header">
         <Link href="/" className="pixel brand-mark" aria-label="Olagunju Oluwaseyi home">O/</Link>
-        <nav className="site-nav" aria-label="Main navigation">
+        <nav className="site-nav site-nav-desktop" aria-label="Main navigation">
           <Link href="/#work">Work</Link><Link href="/#disciplines">Disciplines</Link><Link href="/#about">About</Link><Link href="/#contact">Contact</Link>
         </nav>
+        <details className="mobile-nav"><summary aria-label="Open navigation menu"><span className="mobile-nav-label">MENU</span><span className="mobile-nav-lines"><i/><i/></span></summary><nav aria-label="Mobile main navigation"><Link href="/#work">Work <span>↗</span></Link><Link href="/#disciplines">Disciplines <span>↗</span></Link><Link href="/#about">About <span>↗</span></Link><Link href="/#contact">Contact <span>↗</span></Link></nav></details>
       </header>
       <section className="wrap career-hero">
         <div className="career-hero-copy">
@@ -40,7 +41,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
             <div><div className="eyebrow">01 / Selected work</div><h2 className="pixel section-title">PROJECTS<span className="neon-text">.</span></h2></div>
             <span className="muted" style={{fontSize:12}}>{projects.length} {projects.length === 1 ? "project" : "projects"}</span>
           </div>
-          {projects.length === 0 ? <div className="career-empty"><SectionIcon name={section.icon_name} size={30}/><h3 className="pixel">MORE WORK IN PROGRESS</h3><p className="muted">Projects in this area will appear here as they are ready to share.</p><Link className="button" href="/#disciplines">Explore other disciplines ↗</Link></div> :
+          {projects.length === 0 ? <div className="career-empty"><div className="career-empty-mark" aria-hidden="true"><SectionIcon name={section.icon_name} size={24}/></div><h3 className="pixel">MORE WORK IN PROGRESS</h3><p className="muted">Projects in this area will appear here as they are ready to share.</p><Link className="button" href="/#disciplines">Explore other disciplines <ArrowUpRight size={14}/></Link></div> :
             <div className="project-grid">{projects.map(p=><Link key={p.id} href={"/projects/"+p.slug} className="card career-project-card"><div className="eyebrow">{p.category}</div><h2 className="pixel card-title" style={{marginTop:22}}>{p.title}</h2><p className="card-copy">{p.summary}</p><span className="eyebrow career-project-link">Read case study <ArrowUpRight size={13}/></span></Link>)}</div>}
         </div>
       </section>
