@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { LayoutDashboard, Layers3, FolderKanban, Award, BriefcaseBusiness, Sparkles, Images, Settings2, ChevronDown, ArrowUpRight, type LucideIcon } from "lucide-react";
 
