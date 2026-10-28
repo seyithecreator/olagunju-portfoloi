@@ -36,7 +36,7 @@ export default async function ExperiencePage({ searchParams }: { searchParams: P
         <strong>{x.title}</strong>{x.organization ? " — " + x.organization : ""}
         <p className="muted" style={{ fontSize: 12 }}>{x.category} · {x.start_date || "Date not set"} – {x.current ? "Present" : x.end_date || "End date not set"}</p>
         <p style={{ fontSize: 13, whiteSpace: "pre-wrap" }}>{x.description}</p>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}><Link className="button" href={"/admin/experience?edit=" + x.id}>Edit</Link><form action={deleteExperience} onSubmit={undefined as never}><input type="hidden" name="id" value={x.id}/><button className="button" formAction={deleteExperience}>Delete</button></form></div>
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}><Link className="button" href={"/admin/experience?edit=" + x.id}>Edit</Link><form action={deleteExperience}><input type="hidden" name="id" value={x.id}/><button className="button">Delete</button></form></div>
       </div>)}</div>
     </section>
   </main>;
