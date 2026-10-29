@@ -307,3 +307,31 @@ button, input, textarea, select { font: inherit; }
 .admin-mobile-signout span { flex:1; }
 .admin-mobile-signout .admin-nav-arrow { opacity:.7; }
 .admin-mobile-signout:hover, .admin-mobile-signout:focus-visible { color:var(--neon); background:rgba(166,255,117,.07); }
+
+
+/* Blur the CMS workspace while the mobile navigation is open */
+@media (max-width:640px) {
+  .admin-mobile-menu[open]::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:1;
+    background:rgba(3,7,4,.28);
+    -webkit-backdrop-filter:blur(5px);
+    backdrop-filter:blur(5px);
+    animation:cms-backdrop-in .18s ease-out;
+  }
+  .admin-mobile-menu summary,
+  .admin-mobile-menu-links {
+    position:relative;
+    z-index:2;
+  }
+  .admin-mobile-menu-links { position:absolute; }
+}
+@keyframes cms-backdrop-in {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .admin-mobile-menu[open]::before { animation:none; }
+}
