@@ -335,3 +335,31 @@ button, input, textarea, select { font: inherit; }
 @media (prefers-reduced-motion:reduce) {
   .admin-mobile-menu[open]::before { animation:none; }
 }
+
+
+/* Blur the public portfolio behind the open mobile navigation */
+@media (max-width:640px) {
+  .mobile-nav[open]::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:1;
+    background:rgba(3,7,4,.28);
+    -webkit-backdrop-filter:blur(5px);
+    backdrop-filter:blur(5px);
+    animation:portfolio-backdrop-in .18s ease-out;
+  }
+  .mobile-nav summary,
+  .mobile-nav > nav {
+    position:relative;
+    z-index:2;
+  }
+  .mobile-nav > nav { position:absolute; }
+}
+@keyframes portfolio-backdrop-in {
+  from { opacity:0; }
+  to { opacity:1; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .mobile-nav[open]::before { animation:none; }
+}
