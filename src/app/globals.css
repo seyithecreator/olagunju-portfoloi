@@ -397,3 +397,133 @@ button, input, textarea, select { font: inherit; }
   }
   .admin-content { padding-bottom:110px !important; }
 }
+
+
+/* Unified CMS interactions: accent navigation, animated workflow panels and back links */
+.admin-nav > a.pixel {
+  display:inline-flex;
+  align-items:center;
+  align-self:flex-start;
+  gap:9px;
+  width:max-content;
+  max-width:100%;
+  padding:9px 11px;
+  border:1px solid rgba(166,255,117,.22);
+  border-radius:5px;
+  color:var(--neon) !important;
+  background:rgba(166,255,117,.035);
+  transition:color .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+.admin-nav > a.pixel:hover,
+.admin-nav > a.pixel:focus-visible {
+  color:#071007 !important;
+  background:var(--neon);
+  border-color:var(--neon);
+  box-shadow:0 0 24px rgba(166,255,117,.17);
+  transform:translateY(-2px);
+  outline:none;
+}
+.admin-nav .admin-nav-list > a {
+  position:relative;
+  overflow:hidden;
+  border-radius:5px;
+}
+.admin-nav .admin-nav-list > a::before {
+  content:"";
+  position:absolute;
+  inset:0 auto 0 0;
+  width:2px;
+  background:var(--neon);
+  transform:scaleY(0);
+  transform-origin:center;
+  transition:transform .22s ease;
+}
+.admin-nav .admin-nav-list > a:hover::before,
+.admin-nav .admin-nav-list > a:focus-visible::before,
+.admin-nav .admin-nav-list > a.admin-active-link::before { transform:scaleY(1); }
+.admin-nav .admin-nav-list > a.admin-active-link {
+  box-shadow:inset 0 0 22px rgba(166,255,117,.025);
+}
+.admin-nav .admin-nav-list > a .admin-nav-icon {
+  transition:transform .22s ease, filter .22s ease;
+}
+.admin-nav .admin-nav-list > a:hover .admin-nav-icon,
+.admin-nav .admin-nav-list > a:focus-visible .admin-nav-icon,
+.admin-nav .admin-nav-list > a.admin-active-link .admin-nav-icon {
+  transform:translateY(-1px) scale(1.08);
+  filter:drop-shadow(0 0 6px rgba(166,255,117,.25));
+}
+.admin-note {
+  position:relative;
+  overflow:hidden;
+  transition:transform .28s ease, border-color .28s ease, box-shadow .28s ease, background .28s ease;
+}
+.admin-note::after {
+  content:"";
+  position:absolute;
+  width:150px;
+  height:150px;
+  right:-75px;
+  bottom:-85px;
+  border-radius:50%;
+  background:rgba(166,255,117,.11);
+  filter:blur(30px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .28s ease;
+}
+.admin-note:hover,
+.admin-note:focus-within {
+  transform:translateY(-4px);
+  border-color:rgba(166,255,117,.48);
+  box-shadow:0 14px 38px rgba(0,0,0,.2);
+}
+.admin-note:hover::after,
+.admin-note:focus-within::after { opacity:1; }
+.admin-note .button svg,
+.admin-content > .admin-topline > .button svg {
+  transition:transform .22s ease;
+}
+.admin-note .button:hover svg,
+.admin-content > .admin-topline > .button:hover svg {
+  transform:translate(2px,-2px);
+}
+.admin-mobile-menu summary {
+  transition:color .22s ease, background .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+.admin-mobile-menu summary:hover,
+.admin-mobile-menu summary:focus-visible {
+  border-color:var(--neon);
+  background:rgba(166,255,117,.11);
+  box-shadow:0 0 22px rgba(166,255,117,.1);
+  outline:none;
+}
+.admin-mobile-menu-links a,
+.admin-mobile-signout {
+  transition:color .2s ease, background .2s ease, padding-left .2s ease;
+}
+.admin-mobile-menu-links a:hover,
+.admin-mobile-menu-links a:focus-visible,
+.admin-mobile-signout:hover,
+.admin-mobile-signout:focus-visible {
+  padding-left:14px;
+}
+@media (max-width:640px) {
+  .admin-nav > a.pixel { padding:8px 10px; font-size:20px !important; }
+  .admin-note:hover, .admin-note:focus-within { transform:translateY(-2px); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .admin-nav > a.pixel,
+  .admin-nav .admin-nav-list > a,
+  .admin-nav .admin-nav-list > a .admin-nav-icon,
+  .admin-note,
+  .admin-note::after,
+  .admin-mobile-menu summary,
+  .admin-mobile-menu-links a,
+  .admin-mobile-signout,
+  .admin-note .button svg,
+  .admin-content > .admin-topline > .button svg {
+    transition:none !important;
+    transform:none !important;
+  }
+}
