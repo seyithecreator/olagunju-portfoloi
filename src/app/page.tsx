@@ -21,8 +21,8 @@ export default async function Home() {
       <section className="wrap hero">
         <div className="reveal">
           <div className="eyebrow" style={{ marginBottom: 24 }}>Independent professional portfolio / Nigeria</div>
-          <h1 className="pixel hero-title">BUILDING<br /><span className="neon-text">SECURE SYSTEMS.</span><br />MAKING STORIES.</h1>
-          <p className="muted hero-copy">I'm Olagunju Oluwaseyi — a technology learner and practitioner with interests across cybersecurity, IT systems, web development and visual production.</p>
+          <h1 className="pixel hero-title">BUILDING<br /><span className="neon-text">SECURE SYSTEMS.</span><br />SOLVING REAL PROBLEMS.</h1>
+          <p className="muted hero-copy">I'm Olagunju Oluwaseyi — a technology-focused builder working across cybersecurity, IT systems, cloud and web development. I enjoy turning complex ideas into practical, clear solutions.</p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 28 }}>
             <a className="button" href="#work">Explore selected work <ArrowUpRight size={14} /></a>
             <a className="button" href="#contact">Get in touch <ArrowUpRight size={14} /></a>
@@ -32,7 +32,7 @@ export default async function Home() {
           <div className="hero-orbit" />
           <div className="pixel hero-symbol">O/</div>
           <div className="hero-caption">
-            <span className="eyebrow">Systems / Security / Stories</span>
+            <span className="eyebrow">Systems / Security / Innovation</span>
             <span className="eyebrow">LAG · NG</span>
           </div>
         </div>
@@ -87,15 +87,15 @@ export default async function Home() {
         <div className="wrap about-grid">
           <div><div className="eyebrow">03 / About</div><h2 className="pixel" style={{ fontSize: 38, lineHeight: 1.1, marginTop: 16 }}>CURIOUS BY<br /><span className="neon-text">DESIGN.</span></h2></div>
           <div>
-            <p className="about-copy">I bring together technical problem-solving and hands-on production experience. This portfolio documents projects, practical learning, work contributions and the process behind them — with clear distinctions between professional experience, personal projects and training labs.</p>
-            <p className="muted" style={{ fontSize: 12, lineHeight: 1.9 }}>Every project is part of a bigger process: exploring ideas, learning by building, solving practical problems and sharing what the work teaches me.</p>
+            <p className="about-copy">I focus on building useful technology, understanding how systems work and solving practical problems. My work spans cybersecurity, software and web development, IT systems and cloud learning. I document projects, practical labs and the process behind each result — with clear distinctions between professional experience, personal projects and training.</p>
+            <p className="muted" style={{ fontSize: 12, lineHeight: 1.9 }}>I also bring a creative approach to technical work: clear visual communication, thoughtful presentation and the ability to make complex ideas easier to understand.</p>
           </div>
         </div>
       </section>
 
       <footer id="contact" className="rule">
         <div className="wrap site-footer">
-          <div><div className="pixel" style={{ fontSize: 22 }}>OLAGUNJU OLUWASEYI<span className="neon-text">.</span></div><p className="muted" style={{ fontSize: 12 }}>Technology. Security. Production.</p></div>
+          <div><div className="pixel" style={{ fontSize: 22 }}>OLAGUNJU OLUWASEYI<span className="neon-text">.</span></div><p className="muted" style={{ fontSize: 12 }}>Technology. Cybersecurity. Problem-solving.</p></div>
           <div className="footer-links"><a href="mailto:hello@example.com">Email <ArrowUpRight size={13} strokeWidth={1.8}/></a><a href="https://github.com/seyithecreator" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={13} strokeWidth={1.8}/></a></div>
           <div className="eyebrow" style={{ width: "100%", color: "#829087" }}>© {new Date().getFullYear()} / Built to evolve</div>
         </div>
