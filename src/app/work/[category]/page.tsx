@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getProjects } from "@/lib/data";
 import { createClient } from "@/lib/supabase/server";
@@ -23,7 +23,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
       </header>
       <section className="wrap career-hero">
         <div className="career-hero-copy">
-          <Link href="/#disciplines" className="career-back-link">← All disciplines</Link>
+          <Link href="/#disciplines" className="career-back-link"><ArrowLeft size={14} strokeWidth={1.8} aria-hidden="true" /> <span>All disciplines</span></Link>
           <div className="eyebrow career-kicker">Portfolio / Area of practice</div>
           <h1 className="pixel career-title">{section.title}<span className="neon-text">.</span></h1>
           <p className="career-description">{section.description || "A collection of projects, practical work and ongoing learning in this area."}</p>
