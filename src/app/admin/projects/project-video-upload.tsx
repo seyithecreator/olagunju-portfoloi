@@ -14,10 +14,9 @@ export default function ProjectVideoUpload({ currentImage = "", currentVideo = "
   const [busy, setBusy] = useState<"image" | "video" | null>(null);
   const [message, setMessage] = useState("");
 
-  async function upload(kind: "image" | "video") {
+  async function upload(kind: "image" | "video", form: HTMLFormElement | null) {
     const file = kind === "image" ? imageFile : videoFile;
     if (!file) return;
-    const form = document.querySelector("form");
     const projectTitle = (form?.querySelector<HTMLInputElement>('input[name="title"]')?.value ?? "").trim();
     const projectSlug = (form?.querySelector<HTMLInputElement>('input[name="slug"]')?.value ?? "").trim();
     if (!projectTitle || !projectSlug) return setMessage("Enter the project title and slug before uploading media.");
@@ -37,8 +36,15 @@ export default function ProjectVideoUpload({ currentImage = "", currentVideo = "
       const storagePath = `projects/${projectSlug}/${kind}/${Date.now()}-${safeName}`;
       const { error: uploadError } = await supabase.storage.from(BUCKET).upload(storagePath, file, { upsert: false, contentType: file.type });
       if (uploadError) throw new Error(uploadError.message);
+
       const { data: publicData } = supabase.storage.from(BUCKET).getPublicUrl(storagePath);
       const url = publicData.publicUrl;
+
+      // Set the project field immediately after Storage succeeds. The Media Library
+      // entry is supplementary and must not prevent the project from being saved.
+      if (kind === "image") { setImageUrl(url); setImageFile(null); }
+      else { setVideoUrl(url); setVideoFile(null); }
+
       const { error: recordError } = await supabase.from("media_assets").insert({
         file_name: `${projectTitle} — ${file.name}`,
         storage_path: storagePath,
@@ -49,11 +55,10 @@ export default function ProjectVideoUpload({ currentImage = "", currentVideo = "
         caption: projectTitle,
         alt_text: kind === "image" ? `Cover image for ${projectTitle}` : `Video for ${projectTitle}`
       });
-      if (recordError) throw new Error(`${kind === "image" ? "Image" : "Video"} uploaded, but its Media Library record could not be saved: ${recordError.message}`);
 
-      if (kind === "image") { setImageUrl(url); setImageFile(null); }
-      else { setVideoUrl(url); setVideoFile(null); }
-      setMessage(`${kind === "image" ? "Image" : "Video"} uploaded and added to the Media Library under this project name. Save the project to attach it.`);
+      setMessage(recordError
+        ? `${kind === "image" ? "Image" : "Video"} uploaded. Media Library indexing failed (${recordError.message}), but the project URL is ready — click Save project.`
+        : `${kind === "image" ? "Image" : "Video"} uploaded and added to the Media Library. Click Save project to attach it.`);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : `${kind} upload failed.`);
     } finally {
@@ -66,15 +71,15 @@ export default function ProjectVideoUpload({ currentImage = "", currentVideo = "
       <label>Upload project cover image (max 25 MB)</label>
       <input type="file" accept="image/*" onChange={event => setImageFile(event.target.files?.[0] ?? null)} />
       {imageFile && <p className="muted" style={{fontSize:12}}>{imageFile.name} · {(imageFile.size / (1024 * 1024)).toFixed(2)} MB</p>}
-      <button type="button" className="button" disabled={!imageFile || !!busy} onClick={() => upload("image")}>{busy === "image" ? "Uploading…" : "Upload image to Media Library ↥"}</button>
-      {imageUrl && <p className="muted" style={{fontSize:12,overflowWrap:"anywhere"}}>Cover image attached or ready to attach.</p>}
+      <button type="button" className="button" disabled={!imageFile || !!busy} onClick={event => upload("image", event.currentTarget.form)}>{busy === "image" ? "Uploading…" : "Upload image to Media Library ↥"}</button>
+      {imageUrl && <div style={{marginTop:10}}><img src={imageUrl} alt="Project cover preview" style={{display:"block",width:"min(100%,360px)",maxHeight:200,objectFit:"cover",border:"1px solid #333"}}/><p className="muted" style={{fontSize:12,overflowWrap:"anywhere"}}>Cover image ready. Click Save project to publish the change.</p></div>}
     </div>
     <div className="field">
       <label>Upload project video (max 25 MB)</label>
       <input type="file" accept="video/*" onChange={event => setVideoFile(event.target.files?.[0] ?? null)} />
       {videoFile && <p className="muted" style={{fontSize:12}}>{videoFile.name} · {(videoFile.size / (1024 * 1024)).toFixed(2)} MB</p>}
-      <button type="button" className="button" disabled={!videoFile || !!busy} onClick={() => upload("video")}>{busy === "video" ? "Uploading…" : "Upload video to Media Library ↥"}</button>
-      {videoUrl && <p className="muted" style={{fontSize:12,overflowWrap:"anywhere"}}>Project video attached or ready to attach.</p>}
+      <button type="button" className="button" disabled={!videoFile || !!busy} onClick={event => upload("video", event.currentTarget.form)}>{busy === "video" ? "Uploading…" : "Upload video to Media Library ↥"}</button>
+      {videoUrl && <p className="muted" style={{fontSize:12,overflowWrap:"anywhere"}}>Project video ready. Click Save project to attach it.</p>}
     </div>
     <input type="hidden" name="cover_image" value={imageUrl} />
     <input type="hidden" name="video_url" value={videoUrl} />
