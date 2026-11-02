@@ -71,6 +71,7 @@ export default async function Home() {
             <div className="project-grid">
               {projects.slice(0, 6).map((p) => (
                 <Link className="card" href={`/projects/${p.slug}`} key={p.id}>
+                  {p.cover_image ? <img src={p.cover_image} alt={`${p.title} project preview`} loading="lazy" style={{ width: "100%", aspectRatio: "16 / 9", objectFit: "cover", display: "block", marginBottom: 20, border: "1px solid #333" }} /> : <div aria-hidden="true" style={{ width: "100%", aspectRatio: "16 / 9", marginBottom: 20, border: "1px solid #333", background: "linear-gradient(135deg, rgba(166,255,117,.09), rgba(20,28,22,.8))", display: "grid", placeItems: "center" }}><span className="pixel neon-text" style={{ fontSize: 28 }}>O/</span></div>}
                   <div className="eyebrow">{p.category}</div>
                   <h3 className="pixel card-title" style={{ marginTop: 24 }}>{p.title}</h3>
                   <p className="card-copy">{p.summary}</p>
