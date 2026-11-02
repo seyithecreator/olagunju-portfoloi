@@ -10,6 +10,7 @@ const MAX_FILE_SIZE = 25 * 1024 * 1024;
 export default function MediaPage() {
   const [file, setFile] = useState<File | null>(null);
   const [items, setItems] = useState<{ name: string; size: number | null; createdAt: string | null }[]>([]);
+  const [projectMedia, setProjectMedia] = useState<{ id: string; file_name: string; public_url: string | null; media_kind: string; caption: string | null; created_at: string }[]>([]);
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -30,6 +31,8 @@ export default function MediaPage() {
       const { data, error } = await supabase.storage.from(BUCKET).list("", { limit: 100, sortBy: { column: "created_at", order: "desc" } });
       if (error) throw new Error(error.message);
       setItems((data ?? []).map((item) => ({ name: item.name, size: item.metadata?.size ?? null, createdAt: item.created_at ?? null })));
+      const { data: projectAssets, error: assetsError } = await supabase.from("media_assets").select("id,file_name,public_url,media_kind,caption,created_at").order("created_at", { ascending: false }).limit(100);
+      if (!assetsError) setProjectMedia(projectAssets ?? []);
       if (!data?.length) setMessage("No files found yet. Upload a public asset to get started.");
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Could not load media.");
@@ -58,6 +61,8 @@ export default function MediaPage() {
       if (picker) picker.value = "";
       const { data, error: listError } = await supabase.storage.from(BUCKET).list("", { limit: 100, sortBy: { column: "created_at", order: "desc" } });
       if (!listError) setItems((data ?? []).map((item) => ({ name: item.name, size: item.metadata?.size ?? null, createdAt: item.created_at ?? null })));
+      const { data: projectAssets } = await supabase.from("media_assets").select("id,file_name,public_url,media_kind,caption,created_at").order("created_at", { ascending: false }).limit(100);
+      setProjectMedia(projectAssets ?? []);
     } catch (error) {
       setMessage(error instanceof Error ? error.message : "Upload failed.");
     } finally {
@@ -98,7 +103,7 @@ export default function MediaPage() {
         {message && <p role="status" style={{ fontSize: 12, lineHeight: 1.7, marginTop: 14, color: message.toLowerCase().includes("failed") || message.toLowerCase().includes("not authorized") || message.toLowerCase().includes("sign in") ? "#ff8585" : "var(--neon)" }}>{message}</p>}
       </div>
       <div className="admin-topline"><div><div className="eyebrow">Storage / {items.length} listed</div><h2 className="pixel" style={{ fontSize: 24, margin: "10px 0" }}>STORED ASSETS</h2></div><span className="muted" style={{ fontSize: 11 }}>Bucket: {BUCKET}</span></div>
-      <div style={{ display: "grid", gap: 9, marginTop: 12 }}>
+      <div style={{ marginTop: 30 }}><div className="eyebrow">Project-linked uploads / {projectMedia.length} listed</div><h2 className="pixel" style={{ fontSize: 24, margin: "10px 0" }}>PROJECT MEDIA</h2><div style={{ display: "grid", gap: 9 }}>{projectMedia.map(asset => <div key={asset.id} className="card" style={{ minHeight: 0, padding: 14, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}><div><strong style={{ fontSize: 12 }}>{asset.file_name}</strong><div className="muted" style={{ fontSize: 11, marginTop: 5 }}>{asset.media_kind} · {asset.caption ?? "Portfolio media"} · {new Date(asset.created_at).toLocaleDateString()}</div></div>{asset.public_url && <a className="button" href={asset.public_url} target="_blank" rel="noreferrer">Open media ↗</a>}</div>)}{projectMedia.length === 0 && <p className="muted" style={{ fontSize: 13 }}>Project uploads will appear here with their project name.</p>}</div></div>\n      <div style={{ display: "grid", gap: 9, marginTop: 12 }}>
         {items.map((item) => <div key={item.name} className="card" style={{ minHeight: 0, padding: 14, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
           <div style={{ minWidth: 0, flex: "1 1 220px" }}><strong style={{ fontSize: 12, overflowWrap: "anywhere" }}>{item.name}</strong><div className="muted" style={{ fontSize: 11, marginTop: 6 }}>{item.size == null ? "Size unavailable" : `${(item.size / (1024 * 1024)).toFixed(2)} MB`}{item.createdAt ? ` · ${new Date(item.createdAt).toLocaleDateString()}` : ""}</div></div>
           <button className="button" onClick={() => copyPublicUrl(item.name)}>Copy public URL ↗</button>
