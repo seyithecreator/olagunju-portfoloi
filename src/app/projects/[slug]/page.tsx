@@ -33,7 +33,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         )}
       </header>
 
-      {p.video_url && (
+      {p.video_url ? (
         <section className="project-media-grid has-one-media" aria-label="Project demo video">
           <figure className="project-media-card project-video-card">
             <figcaption className="project-media-heading">
@@ -52,7 +52,19 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
           </figure>
         </section>
-      )}
+      ) : p.cover_image ? (
+        <section className="project-media-grid has-one-media" aria-label="Project image preview">
+          <figure className="project-media-card project-image-card">
+            <figcaption className="project-media-heading">
+              <span>Project preview</span>
+              <span className="eyebrow">01 / IMAGE</span>
+            </figcaption>
+            <div className="project-media-frame project-image-frame">
+              <img src={p.cover_image} alt={`${p.title} project preview`} />
+            </div>
+          </figure>
+        </section>
+      ) : null}
 
       <article className="project-detail-body">{p.body || p.summary}</article>
 
