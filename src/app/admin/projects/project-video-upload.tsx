@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 const BUCKET = "portfolio-assets";
 const MAX_VIDEO_SIZE = 25 * 1024 * 1024;
 
-export default function ProjectVideoUpload({ projectTitle, projectSlug }: { projectTitle: string; projectSlug: string }) {
+export default function ProjectVideoUpload() {
   const [file, setFile] = useState<File | null>(null);
   const [videoUrl, setVideoUrl] = useState("");
   const [busy, setBusy] = useState(false);
@@ -14,7 +14,10 @@ export default function ProjectVideoUpload({ projectTitle, projectSlug }: { proj
 
   async function upload() {
     if (!file) return;
-    if (!projectTitle.trim() || !projectSlug.trim()) {
+    const form = document.querySelector("form");
+    const projectTitle = (form?.querySelector<HTMLInputElement>('input[name="title"]')?.value ?? "").trim();
+    const projectSlug = (form?.querySelector<HTMLInputElement>('input[name="slug"]')?.value ?? "").trim();
+    if (!projectTitle || !projectSlug) {
       setMessage("Enter the project title and slug before uploading its video.");
       return;
     }
