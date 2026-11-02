@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight, Image as ImageIcon, Play } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Play } from "lucide-react";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
@@ -33,30 +33,24 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         )}
       </header>
 
-      {(p.cover_image || p.video_url) && (
-        <section className={`project-media-grid ${p.cover_image && p.video_url ? "has-two-media" : "has-one-media"}`} aria-label="Project media">
-          {p.cover_image && (
-            <figure className="project-media-card project-image-card">
-              <figcaption className="project-media-heading">
-                <span><ImageIcon size={15} aria-hidden="true" /> Project preview</span>
-                <span className="eyebrow">01 / IMAGE</span>
-              </figcaption>
-              <div className="project-media-frame project-image-frame">
-                <img src={p.cover_image} alt={`${p.title} project preview`} />
-              </div>
-            </figure>
-          )}
-          {p.video_url && (
-            <figure className="project-media-card project-video-card">
-              <figcaption className="project-media-heading">
-                <span><Play size={15} aria-hidden="true" /> Demo walkthrough</span>
-                <span className="eyebrow">{p.cover_image ? "02" : "01"} / VIDEO</span>
-              </figcaption>
-              <div className="project-media-frame project-video-frame">
-                <video src={p.video_url} controls preload="metadata" playsInline />
-              </div>
-            </figure>
-          )}
+      {p.video_url && (
+        <section className="project-media-grid has-one-media" aria-label="Project demo video">
+          <figure className="project-media-card project-video-card">
+            <figcaption className="project-media-heading">
+              <span><Play size={15} aria-hidden="true" /> Demo walkthrough</span>
+              <span className="eyebrow">01 / VIDEO</span>
+            </figcaption>
+            <div className="project-media-frame project-video-frame">
+              <video
+                src={p.video_url}
+                controls
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+              />
+            </div>
+          </figure>
         </section>
       )}
 
