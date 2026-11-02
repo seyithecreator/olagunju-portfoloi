@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 const BUCKET = "portfolio-assets";
@@ -40,6 +40,8 @@ export default function MediaPage() {
       setBusy(false);
     }
   }
+
+  useEffect(() => { void load(); }, []);
 
   async function upload() {
     if (!file) return;
