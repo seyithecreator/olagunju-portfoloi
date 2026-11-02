@@ -595,8 +595,9 @@ button, input, textarea, select { font: inherit; }
 
 
 /* Project detail page and compact media gallery */
-.project-detail { max-width: 1040px; padding: 12px 0 64px; }
-.project-detail-header { max-width: 780px; padding: 12px 0 16px; }
+.project-detail { max-width: 1040px; padding: 4px 0 64px; }
+.project-detail > .career-back-link { margin-bottom: 0; }
+.project-detail-header { max-width: 780px; padding: 2px 0 16px; }
 .project-detail-title { font-size: clamp(36px, 5.8vw, 62px); line-height: 1; margin: 8px 0 10px; overflow-wrap: anywhere; }
 .project-detail-summary { max-width: 700px; color: var(--muted); font-size: 15px; line-height: 1.85; margin: 0; }
 .project-detail-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
@@ -620,8 +621,9 @@ button, input, textarea, select { font: inherit; }
 .project-detail-actions p { margin:6px 0 0; font-size:12px; }
 .project-detail-buttons { display:flex; flex-wrap:wrap; gap:10px; }
 @media(max-width:760px) {
- .project-detail { padding-top:14px; }
- .project-detail-header { padding:12px 0 14px; }
+ .project-detail { padding-top:6px; }
+ .project-detail > .career-back-link { margin-bottom:0; }
+ .project-detail-header { padding:2px 0 14px; }
  .project-detail-title { margin:7px 0 9px; }
  .project-media-grid { grid-template-columns:minmax(0,1fr); gap:12px; margin-bottom:28px; }
  .project-media-grid.has-two-media .project-image-card,
