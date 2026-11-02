@@ -13,6 +13,8 @@ export default function ProjectVideoUpload({ currentImage = "", currentVideo = "
   const [videoUrl, setVideoUrl] = useState(currentVideo);
   const [busy, setBusy] = useState<"image" | "video" | null>(null);
   const [message, setMessage] = useState("");
+  const [replaceImage, setReplaceImage] = useState(!currentImage);
+  const [replaceVideo, setReplaceVideo] = useState(!currentVideo);
 
   async function upload(kind: "image" | "video", form: HTMLFormElement | null) {
     const file = kind === "image" ? imageFile : videoFile;
@@ -68,18 +70,24 @@ export default function ProjectVideoUpload({ currentImage = "", currentVideo = "
 
   return <>
     <div className="field">
-      <label>Upload project cover image (max 25 MB)</label>
+      <label>Project cover image</label>
+      {imageUrl && !replaceImage && <div style={{marginBottom:10}}><img src={imageUrl} alt="Saved project cover" style={{display:"block",width:"min(100%,360px)",maxHeight:200,objectFit:"cover",border:"1px solid #333"}}/><p className="muted" style={{fontSize:12}}>Current image is saved and will be kept when you edit this project.</p><button type="button" className="button" onClick={() => setReplaceImage(true)}>Replace image</button></div>}
+      {replaceImage && <><label>Upload a new cover image (max 25 MB)</label>
       <input type="file" accept="image/*" onChange={event => setImageFile(event.target.files?.[0] ?? null)} />
       {imageFile && <p className="muted" style={{fontSize:12}}>{imageFile.name} · {(imageFile.size / (1024 * 1024)).toFixed(2)} MB</p>}
       <button type="button" className="button" disabled={!imageFile || !!busy} onClick={event => upload("image", event.currentTarget.form)}>{busy === "image" ? "Uploading…" : "Upload image to Media Library ↥"}</button>
-      {imageUrl && <div style={{marginTop:10}}><img src={imageUrl} alt="Project cover preview" style={{display:"block",width:"min(100%,360px)",maxHeight:200,objectFit:"cover",border:"1px solid #333"}}/><p className="muted" style={{fontSize:12,overflowWrap:"anywhere"}}>Cover image ready. Click Save project to publish the change.</p></div>}
+      {imageUrl && <div style={{marginTop:10}}><img src={imageUrl} alt="Project cover preview" style={{display:"block",width:"min(100%,360px)",maxHeight:200,objectFit:"cover",border:"1px solid #333"}}/><p className="muted" style={{fontSize:12,overflowWrap:"anywhere"}}>New image ready. Click Save project to attach it.</p></div>}
+      </>}
     </div>
     <div className="field">
-      <label>Upload project video (max 25 MB)</label>
+      <label>Project video</label>
+      {videoUrl && !replaceVideo && <><p className="muted" style={{fontSize:12}}>A video is already saved and will be kept when you edit this project.</p><a href={videoUrl} target="_blank" rel="noreferrer">View current video ↗</a><p><button type="button" className="button" onClick={() => setReplaceVideo(true)}>Replace video</button></p></>}
+      {replaceVideo && <><label>Upload a new project video (max 25 MB)</label>
       <input type="file" accept="video/*" onChange={event => setVideoFile(event.target.files?.[0] ?? null)} />
       {videoFile && <p className="muted" style={{fontSize:12}}>{videoFile.name} · {(videoFile.size / (1024 * 1024)).toFixed(2)} MB</p>}
       <button type="button" className="button" disabled={!videoFile || !!busy} onClick={event => upload("video", event.currentTarget.form)}>{busy === "video" ? "Uploading…" : "Upload video to Media Library ↥"}</button>
-      {videoUrl && <p className="muted" style={{fontSize:12,overflowWrap:"anywhere"}}>Project video ready. Click Save project to attach it.</p>}
+      {videoUrl && <p className="muted" style={{fontSize:12,overflowWrap:"anywhere"}}>New video ready. Click Save project to attach it.</p>}
+      </>}
     </div>
     <input type="hidden" name="cover_image" value={imageUrl} />
     <input type="hidden" name="video_url" value={videoUrl} />
