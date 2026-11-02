@@ -527,3 +527,66 @@ button, input, textarea, select { font: inherit; }
     transform:none !important;
   }
 }
+
+/* Career motion system — active across every discipline and screen size */
+.career-hero-copy {
+  animation: career-copy-enter .85s cubic-bezier(.2,.7,.2,1) both;
+}
+.career-icon-stage {
+  animation: career-stage-enter 1s cubic-bezier(.2,.7,.2,1) both;
+}
+.career-icon-glow {
+  animation: career-glow-pulse 5.5s ease-in-out infinite;
+}
+.career-icon-orbit-one {
+  animation: career-orbit-drift 10s ease-in-out infinite;
+  will-change: transform;
+}
+.career-icon-orbit-two {
+  animation: career-orbit-counter 13s ease-in-out infinite;
+  will-change: transform;
+}
+.career-main-icon {
+  animation: career-icon-float 4.8s ease-in-out infinite;
+  will-change: transform, filter;
+}
+.career-icon-caption {
+  animation: career-caption-in 1.1s .35s ease both;
+}
+@keyframes career-copy-enter {
+  from { opacity:0; transform:translateY(22px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes career-stage-enter {
+  from { opacity:0; transform:translateY(18px) scale(.975); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes career-orbit-drift {
+  0%,100% { transform:translateY(0) rotate(30deg) skew(-8deg); }
+  50% { transform:translateY(-13px) rotate(42deg) skew(-8deg); }
+}
+@keyframes career-orbit-counter {
+  0%,100% { transform:translateY(0) rotate(-24deg) scale(1); }
+  50% { transform:translateY(9px) rotate(12deg) scale(1.04); }
+}
+@keyframes career-icon-float {
+  0%,100% { transform:translateY(0) scale(1); filter:drop-shadow(0 0 16px rgba(166,255,117,.16)); }
+  50% { transform:translateY(-9px) scale(1.045); filter:drop-shadow(0 0 28px rgba(166,255,117,.34)); }
+}
+@keyframes career-glow-pulse {
+  0%,100% { opacity:.65; transform:scale(.9); }
+  50% { opacity:1; transform:scale(1.18); }
+}
+@keyframes career-caption-in {
+  from { opacity:0; letter-spacing:.22em; }
+  to { opacity:1; letter-spacing:.12em; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .career-hero-copy, .career-icon-stage, .career-icon-glow,
+  .career-icon-orbit-one, .career-icon-orbit-two,
+  .career-main-icon, .career-icon-caption {
+    animation:none !important;
+    transform:none !important;
+    opacity:1 !important;
+  }
+}
