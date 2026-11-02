@@ -35,19 +35,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
       {p.video_url && (
         <section className="project-media-grid has-one-media" aria-label="Project demo video">
-          <div className="project-demo-aside">
-            <div className="project-demo-index">01 <span>/</span> FIELD NOTES</div>
-            <div className="project-demo-copy">
-              <div className="eyebrow">A closer look</div>
-              <h2 className="pixel">SEE IT<br /><span>IN ACTION.</span></h2>
-              <p>A short walkthrough of the project, its interface and the details behind the build.</p>
-            </div>
-            <div className="project-demo-foot"><span className="project-demo-dot" /> INTERACTIVE PREVIEW</div>
-          </div>
           <figure className="project-media-card project-video-card">
             <figcaption className="project-media-heading">
               <span><Play size={15} aria-hidden="true" /> Demo walkthrough</span>
-              <span className="eyebrow">PLAY / 01</span>
+              <span className="eyebrow">01 / VIDEO</span>
             </figcaption>
             <div className="project-media-frame project-video-frame">
               <video
