@@ -69,8 +69,31 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   );
   if (!p) notFound();
 
+  const siteUrl = "https://olagunju-portfoloi.vercel.app";
+  const projectUrl = `${siteUrl}/projects/${p.slug}`;
+  const projectSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": `${projectUrl}#creativework`,
+    name: p.title,
+    description: p.summary || `A project by Olagunju Oluwaseyi in ${p.category}.`,
+    url: projectUrl,
+    inLanguage: "en",
+    creator: { "@id": `${siteUrl}/#person` },
+    ...(p.category ? { genre: p.category } : {}),
+    ...(p.tags?.length ? { keywords: p.tags.join(", ") } : {}),
+    ...(p.cover_image ? { image: p.cover_image } : {}),
+    mainEntityOfPage: projectUrl,
+  };
+
   return (
     <main className="wrap project-detail">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(projectSchema).replace(/</g, "\\u003c"),
+        }}
+      />
       <Link href={`/work/${p.category}`} className="career-back-link">
         <ArrowLeft size={14} strokeWidth={1.8} aria-hidden="true" />
         <span>Back to {p.category}</span>
