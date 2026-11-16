@@ -35,7 +35,7 @@ export async function generateMetadata({
   const title = `${section.title} Projects and Experience`;
   const description = (section.description ||
     `Explore ${section.title.toLowerCase()} projects, experience and skills by Olagunju Oluwaseyi.`)
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .slice(0, 160);
   const canonical = `/work/${section.slug}`;
 
