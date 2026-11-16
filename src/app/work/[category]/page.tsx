@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { notFound } from "next/navigation";
@@ -8,6 +9,52 @@ import { SectionIcon } from "@/components/section-icon";
 function displayDate(value: string | null) {
   if (!value) return "";
   return new Date(value + (value.length === 10 ? "T00:00:00Z" : "")).toLocaleDateString("en", { month: "short", year: "numeric", timeZone: "UTC" });
+}
+
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}): Promise<Metadata> {
+  const { category } = await params;
+  const supabase = await createClient();
+  const { data: section } = await supabase
+    .from("portfolio_sections")
+    .select("title,slug,description,visible")
+    .eq("slug", category)
+    .maybeSingle();
+
+  if (!section || !section.visible) {
+    return {
+      title: "Page not found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const title = `${section.title} Projects and Experience`;
+  const description = (section.description ||
+    `Explore ${section.title.toLowerCase()} projects, experience and skills by Olagunju Oluwaseyi.`)
+    .replace(/\\s+/g, " ")
+    .slice(0, 160);
+  const canonical = `/work/${section.slug}`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      url: canonical,
+      title,
+      description,
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+  };
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
