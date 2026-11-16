@@ -5,8 +5,6 @@ import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 
-const siteUrl = "https://olagunju-portfoloi.vercel.app";
-
 export async function generateMetadata({
   params,
 }: {
@@ -15,7 +13,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const supabase = await createClient();
   const requestedSlug = decodeURIComponent(slug).trim().toLowerCase();
-  const slugKey = (value: string) => value.trim().toLowerCase().replace(/[-_\\s]+/g, " ");
+  const slugKey = (value: string) => value.trim().toLowerCase().replace(/[-_\s]+/g, " ");
   const { data: publishedProjects } = await supabase
     .from("projects")
     .select("title,slug,category,summary,cover_image,status")
@@ -34,7 +32,7 @@ export async function generateMetadata({
   }
 
   const description = (project.summary || `Explore the ${project.title} project by Olagunju Oluwaseyi.`)
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .slice(0, 160);
   const canonical = `/projects/${project.slug}`;
   const title = `${project.title} | ${project.category} Project`;
@@ -63,7 +61,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const { slug } = await params;
   const supabase = await createClient();
   const requestedSlug = decodeURIComponent(slug).trim().toLowerCase();
-  const slugKey = (value: string) => value.trim().toLowerCase().replace(/[-_\\s]+/g, " ");
+  const slugKey = (value: string) => value.trim().toLowerCase().replace(/[-_\s]+/g, " ");
   const { data: publishedProjects, error } = await supabase.from("projects").select("*").eq("status", "published");
   if (error) console.error("Project detail lookup failed:", error.message);
   const p = (publishedProjects ?? []).find((project: any) =>
