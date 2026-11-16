@@ -1,7 +1,63 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Play } from "lucide-react";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+
+
+const siteUrl = "https://olagunju-portfoloi.vercel.app";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const supabase = await createClient();
+  const requestedSlug = decodeURIComponent(slug).trim().toLowerCase();
+  const slugKey = (value: string) => value.trim().toLowerCase().replace(/[-_\\s]+/g, " ");
+  const { data: publishedProjects } = await supabase
+    .from("projects")
+    .select("title,slug,category,summary,cover_image,status")
+    .eq("status", "published");
+
+  const project = (publishedProjects ?? []).find((item: any) =>
+    slugKey(item.slug) === slugKey(requestedSlug) ||
+    slugKey(item.title) === slugKey(requestedSlug)
+  );
+
+  if (!project) {
+    return {
+      title: "Project not found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  const description = (project.summary || `Explore the ${project.title} project by Olagunju Oluwaseyi.`)
+    .replace(/\\s+/g, " ")
+    .slice(0, 160);
+  const canonical = `/projects/${project.slug}`;
+  const title = `${project.title} | ${project.category} Project`;
+
+  return {
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "article",
+      url: canonical,
+      title,
+      description,
+      ...(project.cover_image ? { images: [{ url: project.cover_image, alt: `${project.title} project preview` }] } : {}),
+    },
+    twitter: {
+      card: project.cover_image ? "summary_large_image" : "summary",
+      title,
+      description,
+      ...(project.cover_image ? { images: [project.cover_image] } : {}),
+    },
+  };
+}
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
