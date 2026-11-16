@@ -6,8 +6,24 @@ import { getProjects } from "@/lib/data";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
+  title: "Cybersecurity & IT Portfolio",
+  description:
+    "Explore Olagunju Oluwaseyi's practical cybersecurity projects, IT systems work, cloud learning and web development portfolio.",
   alternates: {
     canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    title: "Olagunju Oluwaseyi | Cybersecurity & IT Portfolio",
+    description:
+      "Practical cybersecurity projects, IT systems work, cloud learning and web development by Olagunju Oluwaseyi.",
+    url: "/",
+  },
+  twitter: {
+    card: "summary",
+    title: "Olagunju Oluwaseyi | Cybersecurity & IT Portfolio",
+    description:
+      "Practical cybersecurity projects, IT systems work, cloud learning and web development by Olagunju Oluwaseyi.",
   },
 };
 
@@ -82,7 +98,7 @@ export default async function Home() {
           {projects.length === 0 ? <div className="rule" style={{ padding: "28px 0", color: "#a0aaa2", fontSize: 13, lineHeight: 1.8 }}>Projects published through the CMS will appear here. Start by adding your first project in the admin dashboard.</div> :
             <div className="project-grid">{projects.slice(0, 6).map((p) => (
               <Link className="card" href={`/projects/${p.slug}`} key={p.id}>
-                {p.cover_image ? <img src={p.cover_image} alt={`${p.title} project preview`} loading="lazy" style={{ width: "100%", aspectRatio: "16 / 9", objectFit: "cover", display: "block", marginBottom: 20, border: "1px solid #333" }} /> : <div aria-hidden="true" style={{ width: "100%", aspectRatio: "16 / 9", marginBottom: 20, border: "1px solid #333", background: "linear-gradient(135deg, rgba(166,255,117,.09), rgba(20,28,22,.8))", display: "grid", placeItems: "center" }}><span className="pixel neon-text" style={{ fontSize: 28 }}>O/</span></div>}
+                {p.cover_image ? <img src={p.cover_image} alt={`Screenshot of the ${p.title} project`} loading="lazy" style={{ width: "100%", aspectRatio: "16 / 9", objectFit: "cover", display: "block", marginBottom: 20, border: "1px solid #333" }} /> : <div aria-hidden="true" style={{ width: "100%", aspectRatio: "16 / 9", marginBottom: 20, border: "1px solid #333", background: "linear-gradient(135deg, rgba(166,255,117,.09), rgba(20,28,22,.8))", display: "grid", placeItems: "center" }}><span className="pixel neon-text" style={{ fontSize: 28 }}>O/</span></div>}
                 <div className="eyebrow">{p.category}</div><h3 className="pixel card-title" style={{ marginTop: 24 }}>{p.title}</h3><p className="card-copy">{p.summary}</p>
                 <span className="eyebrow project-card-action" style={{ display: "flex", marginTop: 24 }}>View project <ArrowUpRight size={13} strokeWidth={1.8}/></span>
               </Link>
