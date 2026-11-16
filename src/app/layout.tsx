@@ -13,9 +13,6 @@ export const metadata: Metadata = {
   },
   description:
     "Explore the technology portfolio of Olagunju Oluwaseyi, featuring cybersecurity projects, IT systems, cloud learning and practical software solutions.",
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     url: siteUrl,
