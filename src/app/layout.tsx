@@ -5,6 +5,37 @@ import "./globals.css";
 
 const siteUrl = "https://olagunju-portfoloi.vercel.app";
 
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${siteUrl}/#person`,
+  name: "Olagunju Oluwaseyi",
+  url: siteUrl,
+  description:
+    "Technology-focused builder working across cybersecurity, IT systems, cloud and web development.",
+  knowsAbout: [
+    "Cybersecurity",
+    "Information technology",
+    "IT systems",
+    "Cloud computing",
+    "Web development",
+    "Software development",
+  ],
+  sameAs: ["https://github.com/seyithecreator"],
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  url: siteUrl,
+  name: "Olagunju Oluwaseyi | Technology & Cybersecurity Portfolio",
+  description:
+    "Cybersecurity, IT systems, cloud learning and practical technology projects by Olagunju Oluwaseyi.",
+  inLanguage: "en",
+  publisher: { "@id": `${siteUrl}/#person` },
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -45,6 +76,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([personSchema, websiteSchema]).replace(/</g, "\\u003c"),
+          }}
+        />
         <Script
           id="google-analytics-init"
           strategy="afterInteractive"
