@@ -68,8 +68,37 @@ export default async function CategoryPage({ params }: { params: Promise<{ categ
     supabase.from("skills").select("id,name,level,proficiency_label,description,sort_order").eq("category", category).eq("visible", true).order("sort_order", { ascending: true }),
   ]);
 
+  const siteUrl = "https://olagunju-portfoloi.vercel.app";
+  const categoryUrl = `${siteUrl}/work/${section.slug}`;
+  const categorySchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${categoryUrl}#webpage`,
+    name: `${section.title} Projects and Experience`,
+    description: section.description || `Explore ${section.title.toLowerCase()} projects, experience and skills by Olagunju Oluwaseyi.`,
+    url: categoryUrl,
+    inLanguage: "en",
+    about: section.title,
+    isPartOf: { "@id": `${siteUrl}/#website` },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: projects.map((project, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: project.title,
+        url: `${siteUrl}/projects/${project.slug}`,
+      })),
+    },
+  };
+
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(categorySchema).replace(/</g, "\\u003c"),
+        }}
+      />
       <header className="wrap site-header">
         <Link href="/" className="pixel brand-mark" aria-label="Olagunju Oluwaseyi home">O/</Link>
         <nav className="site-nav site-nav-desktop" aria-label="Main navigation"><Link href="/#work">Work</Link><Link href="/#disciplines">Disciplines</Link><Link href="/#experience">Experience</Link><Link href="/#about">About</Link><Link href="/#contact">Contact</Link></nav>
