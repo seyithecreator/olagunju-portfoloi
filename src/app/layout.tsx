@@ -29,9 +29,9 @@ const websiteSchema = {
   "@type": "WebSite",
   "@id": `${siteUrl}/#website`,
   url: siteUrl,
-  name: "Olagunju Oluwaseyi | Technology & Cybersecurity Portfolio",
+  name: "Cybersecurity & IT Portfolio | Olagunju Oluwaseyi",
   description:
-    "Cybersecurity, IT systems, cloud learning and practical technology projects by Olagunju Oluwaseyi.",
+    "Explore Olagunju Oluwaseyi's practical cybersecurity projects, IT systems work, cloud learning and web development portfolio.",
   inLanguage: "en",
   publisher: { "@id": `${siteUrl}/#person` },
 };
@@ -39,25 +39,25 @@ const websiteSchema = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Olagunju Oluwaseyi | Technology & Cybersecurity Portfolio",
+    default: "Cybersecurity & IT Portfolio | Olagunju Oluwaseyi",
     template: "%s | Olagunju Oluwaseyi",
   },
   description:
-    "Explore the technology portfolio of Olagunju Oluwaseyi, featuring cybersecurity projects, IT systems, cloud learning and practical software solutions.",
+    "Explore Olagunju Oluwaseyi's practical cybersecurity projects, IT systems work, cloud learning and web development portfolio.",
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName: "Olagunju Oluwaseyi",
-    title: "Olagunju Oluwaseyi | Technology & Cybersecurity Portfolio",
+    title: "Cybersecurity & IT Portfolio | Olagunju Oluwaseyi",
     description:
-      "Cybersecurity, IT systems, cloud learning and practical technology projects by Olagunju Oluwaseyi.",
+      "Practical cybersecurity projects, IT systems work, cloud learning and web development by Olagunju Oluwaseyi.",
     locale: "en_NG",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Olagunju Oluwaseyi | Technology & Cybersecurity Portfolio",
+    title: "Cybersecurity & IT Portfolio | Olagunju Oluwaseyi",
     description:
-      "Cybersecurity, IT systems, cloud learning and practical technology projects by Olagunju Oluwaseyi.",
+      "Practical cybersecurity projects, IT systems work, cloud learning and web development by Olagunju Oluwaseyi.",
   },
   robots: {
     index: true,
